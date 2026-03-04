@@ -1,0 +1,30 @@
+# Túnel Cloudflare + Postiz (login por túnel corregido)
+
+Se aplicó el parche oficial para el bug de cookies con túneles (Issue #1143): la cookie usa el hostname completo y el header "reload" que provocaba volver al login fue desactivado.
+
+## URL actual de Postiz (abre en Chrome)
+
+https://second-dom-college-accordingly.trycloudflare.com
+
+## En Meta (developers.facebook.com) → tu app → Facebook Login for Business → Settings
+
+Pega en **Valid OAuth Redirect URIs** estas dos líneas (una por línea):
+
+https://second-dom-college-accordingly.trycloudflare.com/integrations/social/instagram
+https://second-dom-college-accordingly.trycloudflare.com/integrations/social/facebook
+
+Guarda los cambios.
+
+## Pasos para entrar
+
+1. Asegúrate de que el túnel está corriendo (./iniciar-tunel.sh o cloudflared tunnel --url http://localhost:4007).
+2. Arranca Postiz **con la URL del túnel** (si no lo has hecho):
+   export POSTIZ_URL=https://second-dom-college-accordingly.trycloudflare.com
+   docker compose up -d postiz
+3. Espera ~40 segundos a que el backend arranque.
+4. Entra en Chrome: https://second-dom-college-accordingly.trycloudflare.com
+5. Inicia sesión (tu usuario y contraseña).
+6. Ve a Integrations (o Add Channel) → Instagram → conectar.
+
+---
+Si cierras cloudflared, la URL deja de funcionar. La próxima vez: ejecuta ./iniciar-tunel.sh, anota la nueva URL, actualiza los Redirect URIs en Meta y reinicia Postiz con POSTIZ_URL=https://nueva-url.trycloudflare.com docker compose up -d postiz.

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+
+# Assets pesados (opcional: quitar si quieres versionar las imágenes)
+# Artes/
+# Post/

@@ -1,0 +1,57 @@
+# Mixpost en local (Lite). Uso: docker compose up -d
+# Luego accede a http://localhost:8080
+# Documentación: https://docs.mixpost.app/lite/installation/docker/
+
+services:
+  app:
+    image: inovector/mixpost:latest
+    ports:
+      - "9090:80"
+    environment:
+      APP_KEY: base64:6HLdHmgfSIB9JjrI5nwhxKVV82Mw7qFKJFpvXAKrtvY=
+      APP_URL: ${MIXPOST_APP_URL:-http://localhost:9090}
+      APP_ENV: local
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: mixpost
+      DB_USERNAME: mixpost
+      DB_PASSWORD: mixpost_secret
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - mixpost_storage:/var/www/html/storage/app/public
+      - mixpost_bootstrap:/var/www/html/bootstrap/cache
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: mixpost
+      MYSQL_USER: mixpost
+      MYSQL_PASSWORD: mixpost_secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    volumes:
+      - mixpost_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_secret"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  mixpost_storage:
+  mixpost_bootstrap:
+  mixpost_mysql:

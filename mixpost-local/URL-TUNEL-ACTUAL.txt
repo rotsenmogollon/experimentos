@@ -1,0 +1,12 @@
+# Túnel Cloudflare activo (solo mientras la terminal de cloudflared siga abierta)
+
+URL de Mixpost:
+https://racks-comes-barbara-rebates.trycloudflare.com
+
+Pega en Meta (Facebook/Instagram) estos URI de redirección exactos:
+
+https://racks-comes-barbara-rebates.trycloudflare.com/mixpost/callback/facebook_page
+https://racks-comes-barbara-rebates.trycloudflare.com/mixpost/callback/instagram
+
+Luego abre Mixpost en el navegador: https://racks-comes-barbara-rebates.trycloudflare.com
+y en Social Accounts → Add account → Instagram.

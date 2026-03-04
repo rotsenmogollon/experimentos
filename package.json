@@ -1,0 +1,30 @@
+{
+  "name": "financiera-mi-casa-calendario",
+  "version": "1.0.0",
+  "description": "Calendario de publicaciones y programación en Postiz para Financiera Mi Casa",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "calendar": "tsx src/commands/generate-calendar.ts",
+    "schedule": "tsx src/commands/schedule-postiz.ts",
+    "schedule:delete-all": "tsx src/commands/delete-all-postiz-posts.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "csv-parse": "^5.6.0",
+    "csv-stringify": "^6.5.2",
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.0",
+    "sharp": "^0.34.5",
+    "zod": "^3.23.8"
+  }
+}
