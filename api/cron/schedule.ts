@@ -54,10 +54,11 @@ export default async function handler(
     });
     const data = (await r.json()) as unknown[];
     const ig = Array.isArray(data)
-      ? data.find(
-          (i: { identifier?: string }) =>
-            i.identifier === "instagram" || i.identifier === "instagram-standalone"
-        )
+      ? data.find((i: unknown) => {
+          if (typeof i !== "object" || i === null || !("identifier" in i)) return false;
+          const id = (i as { identifier?: string }).identifier;
+          return id === "instagram" || id === "instagram-standalone";
+        })
       : null;
 
     res.setHeader("Cache-Control", "no-store");
