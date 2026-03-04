@@ -11,6 +11,7 @@ import { resolve } from "node:path";
 import sharp from "sharp";
 import { getConfig, getPostizApiBase } from "../config.js";
 import { createPostizClient } from "../postiz/client.js";
+import type { PostizListPost } from "../postiz/types.js";
 
 const TARGET_WIDTH = 1080;
 const TARGET_HEIGHT = 1350;
@@ -73,7 +74,7 @@ async function main(): Promise<void> {
   const { posts } = await client.listPosts({ startDate, endDate });
   const targetTime = `${fecha}T${HORA_POST}:00.000Z`;
   const postToDelete = posts.find(
-    (p) =>
+    (p: PostizListPost) =>
       p.integration.id === integrationId &&
       (p.publishDate === targetTime || p.publishDate.startsWith(`${fecha}T09:`)) &&
       p.state === "QUEUE"

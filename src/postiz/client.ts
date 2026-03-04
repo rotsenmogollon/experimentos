@@ -14,6 +14,10 @@ export function createPostizClient(
   listIntegrations: () => Promise<PostizIntegration[]>;
   uploadMedia: (filePath: string) => Promise<PostizMediaFile>;
   createPost: (body: CreatePostBody) => Promise<unknown>;
+  listPosts: (params: { startDate: string; endDate: string }) => Promise<{
+    posts: PostizListPost[];
+  }>;
+  deletePost: (id: string) => Promise<{ id: string }>;
 } {
   const api: AxiosInstance = axios.create({
     baseURL: baseUrl,

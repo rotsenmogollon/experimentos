@@ -3,6 +3,7 @@ dist/
 .env
 *.log
 .DS_Store
+.vercel
 
 # Assets pesados (opcional: quitar si quieres versionar las imágenes)
 # Artes/
